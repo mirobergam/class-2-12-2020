@@ -1,0 +1,25 @@
+---
+title: "Class Clump"
+author: "Miroslav Bergam"
+date: "2/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(reprex)
+```
+
+```{r}
+
+class <- c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+class <- as_tibble(class)
+
+class<- class %>% 
+  mutate(value = sample(value, replace = FALSE)) %>%
+  
+
+
+```
+
