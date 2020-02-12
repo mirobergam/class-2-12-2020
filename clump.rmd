@@ -19,17 +19,27 @@ class <- as_tibble(class) %>%
   cbind(table)
 
 
-class <- 
+clumper <- function() {
   class %>% 
   mutate(value = sample(value, replace = FALSE)) %>%
   filter(table < 8) %>% 
   group_by(table) %>% 
   summarize(total = sum(value)) %>% 
-  mutate(clump = ifelse((total == 0 || total == 4), 1, 0)) %>% 
+  mutate(clump = ifelse((total == 0 | total == 4), 1, 0)) %>% 
   select(clump) %>%
-  summarise(num = sum(clump))
-  
+  summarise(num = sum(clump)) %>% 
+  pull()
+}  
 
+run_clumps <- function(n) {
+  sims <- map_dbl(1:n, ~clumper())
+}
 
+first_try <- run_clumps(100)
+
+first_try %>% 
+  as_tibble(first_try) %>%
+  ggplot(aes(x = value, color = "red")) +
+  geom_histogram()
 ```
 
