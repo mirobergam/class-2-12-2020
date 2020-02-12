@@ -13,13 +13,23 @@ library(reprex)
 
 ```{r}
 
+table <- c(1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8)
 class <- c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
-class <- as_tibble(class)
+class <- as_tibble(class) %>% 
+  cbind(table)
 
-class<- class %>% 
+
+class <- 
+  class %>% 
   mutate(value = sample(value, replace = FALSE)) %>%
+  filter(table < 8) %>% 
+  group_by(table) %>% 
+  summarize(total = sum(value)) %>% 
+  mutate(clump = ifelse(total == 0 ||total == 4, 1, 0)) %>% 
+  select(clump) %>%
+  summarise(num = sum(clump))
   
-
+   
 
 ```
 
