@@ -25,11 +25,11 @@ class <-
   filter(table < 8) %>% 
   group_by(table) %>% 
   summarize(total = sum(value)) %>% 
-  mutate(clump = ifelse(total == 0 ||total == 4, 1, 0)) %>% 
+  mutate(clump = ifelse((total == 0 || total == 4), 1, 0)) %>% 
   select(clump) %>%
   summarise(num = sum(clump))
   
-   
+
 
 ```
 
